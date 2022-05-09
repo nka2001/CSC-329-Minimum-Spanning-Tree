@@ -404,7 +404,7 @@ public class Graph {
     public Graph computeMinimumSpanningForest() {
         Graph rv = new Graph(nodes.size(), directed);
 
-        
+        Queue<Edge> q = new PriorityQueue<>();
         
         var iter = edges.iterator();
         
@@ -412,11 +412,26 @@ public class Graph {
             var thisEdge = iter.next();
             while(null != thisEdge){
                 if(thisEdge.fromNode < thisEdge.connectsToNode){
-                    System.out.println(thisEdge.fromNode + " - " + thisEdge.connectsToNode + " - " + thisEdge.weight);
+                    q.add(thisEdge);
                 }
                 thisEdge = thisEdge.next;
             }
+            
         }
+        /*
+        var iter2 = q.iterator();
+        
+        while(iter2.hasNext()){
+            Edge p = q.poll();
+            System.out.println("int while");
+            System.out.println(p.connectsToNode + " - " + p.fromNode + " - " + p.weight);
+        }
+        
+        
+*/
+        
+       
+        
         
         
         
