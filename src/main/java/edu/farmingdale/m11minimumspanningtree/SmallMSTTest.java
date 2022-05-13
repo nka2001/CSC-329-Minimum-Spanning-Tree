@@ -22,6 +22,7 @@ public class SmallMSTTest implements RunTest {
         theGraph.addEdge(2, 4, 1);
         theGraph.addEdge(3, 4, 7);
         var mst = theGraph.computeMinimumSpanningForest();
+        System.out.println(mst.getEdgeCount());
         if (mst.getEdgeCount() != 4) {
             // Hmm, do we count 1x or 2x for undirected edges
             return "E1001";

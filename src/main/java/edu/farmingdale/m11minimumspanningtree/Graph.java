@@ -403,38 +403,31 @@ public class Graph {
      */
     public Graph computeMinimumSpanningForest() {
         Graph rv = new Graph(nodes.size(), directed);
-
-        Queue<Edge> q = new PriorityQueue<>();
+        UnionFind uf = new UnionFind(nodes.size());//create an instance of union
+        Queue<Edge> q = new PriorityQueue<>();//priority queue used to store all the edges and they are sorted as well
         
-        var iter = edges.iterator();
+        var iter = edges.iterator();//create an iterator 
         
         while(iter.hasNext()){
             var thisEdge = iter.next();
             while(null != thisEdge){
-                if(thisEdge.fromNode < thisEdge.connectsToNode){
-                    q.add(thisEdge);
+                if(thisEdge.fromNode < thisEdge.connectsToNode){//this allows only one side of the edges to be added, instead of both directions we dont need them
+                    q.add(thisEdge);//add the edge to the priortity queue
                 }
                 thisEdge = thisEdge.next;
             }
             
         }
-        /*
-        var iter2 = q.iterator();
-        
-        while(iter2.hasNext()){
-            Edge p = q.poll();
-            System.out.println("int while");
-            System.out.println(p.connectsToNode + " - " + p.fromNode + " - " + p.weight);
+        while(!q.isEmpty()){
+            Edge e = q.poll();//pull the sorted edge off the top
+           
+            if(uf.find(e.connectsToNode) != uf.find(e.fromNode)){//if the find numbers are not equal, then a cycle cannot be created
+                rv.addEdge(e.connectsToNode, e.fromNode,e.weight);// add the edge
+                uf.union(e.connectsToNode, e.fromNode);//merge the nodes
+                
+            }
+            
         }
-        
-        
-*/
-        
-       
-        
-        
-        
-        
         
         return rv;
     } // computeMinimumSpanningForest()
